@@ -3,7 +3,6 @@ import { Mutation, Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import Form from './styles/Form';
 import Error from '../components/ErrorMessage';
-import Router from 'next/router';
 import formatMoney from '../lib/formatMoney.js';
 
 const SINGLE_ITEM_QUERY = gql`
