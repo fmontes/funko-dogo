@@ -13,6 +13,9 @@ const Nav = () => {
             <Link href="/items">
                 <a>Shop</a>
             </Link>
+            <Link href="/signup">
+                <a>Sign Up</a>
+            </Link>
         </NavStyles>
     );
 };
