@@ -37,7 +37,6 @@ export default class Signup extends Component {
                             onSubmit={async e => {
                                 e.preventDefault();
                                 const res = await singup();
-                                console.log(res);
                                 this.setState({
                                     name: '',
                                     password: '',

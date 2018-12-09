@@ -66,14 +66,12 @@ const mutations = {
         );
 
         // create the JWT token
-        const token = jwt.sign({
-            userId: user
-        }, process.env.APP_SECRET)
+        const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
 
         // set the jwt as a cookie in the response
-        ctx.response.cookie('token', token,  {
+        ctx.response.cookie('token', token, {
             httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year cookie
+            maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year cookie
         });
 
         return user;
