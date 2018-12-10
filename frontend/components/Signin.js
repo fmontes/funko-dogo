@@ -6,9 +6,9 @@ import Error from './ErrorMessage';
 
 import { CURRENT_USER_QUERY } from './User';
 
-const SIGNUP_MUTATION = gql`
-    mutation SIGNUP_MUTATIO($email: String!, $name: String!, $password: String!) {
-        signup(email: $email, password: $password, name: $name) {
+const SIGNIN_MUTATION = gql`
+    mutation SIGNIN_MUTATION($email: String!, $password: String!) {
+        signin(email: $email, password: $password) {
             id
             email
             name
@@ -16,9 +16,8 @@ const SIGNUP_MUTATION = gql`
     }
 `;
 
-export default class Signup extends Component {
+export default class Signin extends Component {
     state = {
-        name: '',
         password: '',
         email: ''
     };
@@ -32,7 +31,7 @@ export default class Signup extends Component {
     render() {
         return (
             <Mutation
-                mutation={SIGNUP_MUTATION}
+                mutation={SIGNIN_MUTATION}
                 variables={this.state}
                 refetchQueries={[{ query: CURRENT_USER_QUERY }]}
             >
@@ -44,14 +43,13 @@ export default class Signup extends Component {
                                 e.preventDefault();
                                 const res = await singup();
                                 this.setState({
-                                    name: '',
                                     password: '',
                                     email: ''
                                 });
                             }}
                         >
                             <fieldset disabled={loading} aria-busy={loading}>
-                                <h2>Sign up</h2>
+                                <h2>Sign in</h2>
                                 <Error error={error} />
 
                                 <label htmlFor="email">
@@ -61,16 +59,6 @@ export default class Signup extends Component {
                                         name="email"
                                         placeholder="Email"
                                         value={this.state.email}
-                                        onChange={this.saveToState}
-                                    />
-                                </label>
-                                <label htmlFor="name">
-                                    Name
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        placeholder="Name"
-                                        value={this.state.name}
                                         onChange={this.saveToState}
                                     />
                                 </label>
