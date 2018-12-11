@@ -88,7 +88,7 @@ const mutations = {
         if (!valid) {
             throw new Error('Invalid password');
         }
-        
+
         // 3. generate jwt token
         const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
 
@@ -100,6 +100,12 @@ const mutations = {
 
         // 5. return the user
         return user;
+    },
+    logout(parent, args, ctx, info) {
+        ctx.response.clearCookie('token');
+        return {
+            message: 'Goodbye!'
+        }
     }
 };
 
