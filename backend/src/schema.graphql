@@ -2,7 +2,6 @@
 # PUBLIC GRAPHQL API
 #--------------------------------
 
-
 # There is no standard imports in GraphQL so Prisma uses this comment syntax for this porpuse
 # import * from './generated/prisma.graphql'
 
@@ -17,6 +16,8 @@ type Mutation {
     signup(email: String!, password: String!, name: String!): User!
     signin(email: String!, password: String!): User!
     logout: SuccessMessage
+    requestReset(email: String!): SuccessMessage
+    resetPassword(resetToken: String, password: String!, confirmPassword: String!): User!
 }
 
 type Query {
@@ -24,4 +25,17 @@ type Query {
     item(where: ItemWhereUniqueInput!): Item
     itemsConnection(where: ItemWhereInput): ItemConnection!
     me: User
+}
+
+# For secutiry reasons we're redefining the
+# User type without sentive information
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    permissions: [Permission!]!
+    # password: String!
+    # resetToken: String
+    # resetToenExpiry: String
+    # permissions: [Permission!]!
 }

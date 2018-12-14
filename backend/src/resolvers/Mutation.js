@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { randomBytes } = require('crypto'); // Built in to node
+const { promisify } = require('util'); // Built in to node
 
 const mutations = {
     async createItem(parent, args, ctx, info) {
@@ -105,7 +107,80 @@ const mutations = {
         ctx.response.clearCookie('token');
         return {
             message: 'Goodbye!'
+        };
+    },
+    async requestReset(parent, args, ctx, info) {
+        // 1. check if real user
+        const user = await ctx.db.query.user({ where: { email: args.email } });
+
+        if (!user) {
+            throw new Error(`No user found for ${args.email}`);
         }
+
+        // 2. Set reset toket and expire
+        const randomBytesPromisified = promisify(randomBytes);
+        const resetToken = (await randomBytesPromisified(20)).toString('hex');
+        const resetTokenExpiry = Date.now() + 3600000; // 1h
+        const res = await ctx.db.mutation.updateUser({
+            where: { email: args.email },
+            data: {
+                resetToken,
+                resetTokenExpiry
+            }
+        });
+
+        return {
+            message: 'Reset password email on the way'
+        };
+
+        // 3. Email them the reset token
+    },
+    async resetPassword(parent, args, ctx, info) {
+        // 1. check if the passwords match
+        if (args.password !== args.confirmPassword) {
+            throw new Error('Password does not match');
+        }
+
+        // 2. check if is a legit reset token
+        // 3. check if is expired
+        const [user] = await ctx.db.query.users({
+            where: {
+                resetToken: args.resetToken,
+                resetTokenExpiry_gte: Date.now() - 3600000
+            }
+        });
+
+        if (!user) {
+            throw new Error('Token invalid or expired!');
+        }
+
+        // 4. Hash their password
+        const password = await bcrypt.hash(args.password, 10);
+
+        // 5. Save the new password and remove token fields
+        const updatedUser = await ctx.db.mutation.updateUser({
+            where: {
+                email: user.email
+            },
+            data: {
+                password,
+                resetToken: null,
+                resetTokenExpiry: null
+            }
+        });
+
+        // 6. Generate jwt
+        const token = jwt.sign({ userId: updatedUser.id }, process.env.APP_SECRET);
+        
+        // 7. Set the jwt cookie
+        ctx.response.cookie('token', token,  {
+            httpOnly: true,
+            maxAge: 1000 * 60 * 60 * 24 * 365
+        });
+        
+        // 8. Return new user
+        return updatedUser;
+        // 9. YEAH!
     }
 };
 
