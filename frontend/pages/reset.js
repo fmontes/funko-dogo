@@ -1,10 +1,8 @@
 import React from 'react';
-import CreateItem from '../components/CreateItem'
+import ResetPassword from '../components/ResetPassword'
 
-const Sell = props => (
-    <div>
-        reset password
-    </div>
+const Reset = props => (
+    <ResetPassword resetToken={props.query.resetToken} />
 )
 
-export default Sell;
+export default Reset;
