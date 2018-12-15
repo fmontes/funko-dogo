@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { randomBytes } = require('crypto'); // Built in to node
 const { promisify } = require('util'); // Built in to node
+const { hasPermission } = require('../utils');
 
 const { transport, makeANiceEMail } = require('../mail');
 
@@ -203,6 +204,41 @@ const mutations = {
         // 8. Return new user
         return updatedUser;
         // 9. YEAH!
+    },
+    async updatePermissions(parent, args, ctx, info) {
+        // 1. check if user logged in
+        if (!ctx.request.userId) {
+            throw new Error('You need to be logged in');
+        }
+
+        // 2. query the corrent user
+        const currentUser = await ctx.db.query.user(
+            {
+                where: {
+                    id: ctx.request.userId
+                }
+            },
+            info
+        );
+
+        // 3. check if they have permission to update permissions
+        hasPermission(currentUser, ['ADMIN', 'PERMISSIONUPDATE']);
+
+        // 4. update permissions
+        return ctx.db.mutation.updateUser(
+            {
+                data: {
+                    permissions: {
+                        // This set is cuz' permission have it owns ENUM
+                        set: args.permissions
+                    }
+                },
+                where: {
+                    id: args.userId
+                }
+            },
+            info
+        );
     }
 };
 
