@@ -8,10 +8,19 @@ const { transport, makeANiceEMail } = require('../mail');
 const mutations = {
     async createItem(parent, args, ctx, info) {
         // TODO: check if they are log in
+        if (!ctx.request.userId) {
+            throw new Error('You need to be logged in');
+        }
 
         const item = await ctx.db.mutation.createItem(
             {
                 data: {
+                    // this is how you create relationships in prisma
+                    user: {
+                        connect: {
+                            id: ctx.request.userId
+                        }
+                    },
                     ...args
                 }
             },
