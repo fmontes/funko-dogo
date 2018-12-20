@@ -373,8 +373,6 @@ const mutations = {
             return orderItem;
         });
 
-        console.log(charge.amount);
-
         // 5. Create the order
         const order = await ctx.db.mutation.createOrder({
             data: {
