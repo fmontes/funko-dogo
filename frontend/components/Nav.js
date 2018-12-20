@@ -4,18 +4,21 @@ import User from './User';
 import Signout from './Signout';
 import CartCount from './CartCount';
 import { Mutation } from 'react-apollo';
-import { TOGGLE_CART_MUTATION} from '../components/Cart';
+import { TOGGLE_CART_MUTATION } from '../components/Cart';
 
 const Nav = () => {
-    return <User>
-            {({ data: { me } }) => <NavStyles>
+    return (
+        <User>
+            {({ data: { me } }) => (
+                <NavStyles>
                     <Link href="/">
                         <a>Home</a>
                     </Link>
                     <Link href="/items">
                         <a>Shop</a>
                     </Link>
-                    {me && <>
+                    {me && (
+                        <>
                             <Link href="/orders">
                                 <a>Orders</a>
                             </Link>
@@ -26,18 +29,29 @@ const Nav = () => {
                                 <a>Account</a>
                             </Link>
                             <Signout />
-                        </>}
-                    {!me && <Link href="/signup">
+                        </>
+                    )}
+                    {!me && (
+                        <Link href="/signup">
                             <a>Sign In</a>
-                        </Link>}
+                        </Link>
+                    )}
                     <Mutation mutation={TOGGLE_CART_MUTATION}>
-                        {toggleCart => <button onClick={toggleCart}>
+                        {toggleCart => (
+                            <button onClick={toggleCart}>
                                 Cart
-                                <CartCount count={me.cart.reduce((tally, cartItem) => tally + cartItem.quantity, 0)} />
-                            </button>}
+                                {me.cart && (
+                                    <CartCount
+                                        count={me.cart.reduce((tally, cartItem) => tally + cartItem.quantity, 0)}
+                                    />
+                                )}
+                            </button>
+                        )}
                     </Mutation>
-                </NavStyles>}
-        </User>;
+                </NavStyles>
+            )}
+        </User>
+    );
 };
 
 export default Nav;
