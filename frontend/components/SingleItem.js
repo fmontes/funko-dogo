@@ -70,3 +70,5 @@ export default class SingleItem extends Component {
         );
     }
 }
+
+export { SINGLE_ITEM_QUERY };

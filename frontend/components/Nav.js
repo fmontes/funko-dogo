@@ -1,57 +1,50 @@
 import Link from 'next/link';
+import { Mutation } from 'react-apollo';
+import { TOGGLE_CART_MUTATION } from './Cart';
 import NavStyles from './styles/NavStyles';
 import User from './User';
-import Signout from './Signout';
 import CartCount from './CartCount';
-import { Mutation } from 'react-apollo';
-import { TOGGLE_CART_MUTATION } from '../components/Cart';
+import Signout from './Signout';
 
-const Nav = () => {
-    return (
-        <User>
-            {({ data: { me } }) => (
-                <NavStyles>
-                    <Link href="/">
-                        <a>Home</a>
-                    </Link>
-                    <Link href="/items">
-                        <a>Shop</a>
-                    </Link>
-                    {me && (
-                        <>
-                            <Link href="/orders">
-                                <a>Orders</a>
-                            </Link>
-                            <Link href="/sell">
-                                <a>Sell</a>
-                            </Link>
-                            <Link href="/account">
-                                <a>Account</a>
-                            </Link>
-                            <Signout />
-                        </>
-                    )}
-                    {!me && (
-                        <Link href="/signup">
-                            <a>Sign In</a>
+const Nav = () => (
+    <User>
+        {({ data: { me } }) => (
+            <NavStyles data-test="nav">
+                <Link href="/items">
+                    <a>Shop</a>
+                </Link>
+                {me && (
+                    <>
+                        <Link href="/sell">
+                            <a>Sell</a>
                         </Link>
-                    )}
-                    <Mutation mutation={TOGGLE_CART_MUTATION}>
-                        {toggleCart => (
-                            <button onClick={toggleCart}>
-                                Cart
-                                {me.cart && (
+                        <Link href="/orders">
+                            <a>Orders</a>
+                        </Link>
+                        <Link href="/me">
+                            <a>Account</a>
+                        </Link>
+                        <Signout />
+                        <Mutation mutation={TOGGLE_CART_MUTATION}>
+                            {toggleCart => (
+                                <button onClick={toggleCart}>
+                                    My Cart
                                     <CartCount
                                         count={me.cart.reduce((tally, cartItem) => tally + cartItem.quantity, 0)}
                                     />
-                                )}
-                            </button>
-                        )}
-                    </Mutation>
-                </NavStyles>
-            )}
-        </User>
-    );
-};
+                                </button>
+                            )}
+                        </Mutation>
+                    </>
+                )}
+                {!me && (
+                    <Link href="/signup">
+                        <a>Sign In</a>
+                    </Link>
+                )}
+            </NavStyles>
+        )}
+    </User>
+);
 
 export default Nav;
