@@ -33,8 +33,8 @@ export default class ResetPassword extends Component {
                 variables={{
                     resetToken: this.props.resetToken,
                     password: this.state.password,
-                    confirmPassword: this.state.confirmPassword,
-                  }}
+                    confirmPassword: this.state.confirmPassword
+                }}
             >
                 {(reset, { error, loading, called }) => {
                     return (
