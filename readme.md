@@ -1,7 +1,7 @@
 # React and GraphQL ecommerce webapp
 I develop this app while doing the [Advanced React & GraphQL](https://AdvancedReact.com) course by [Wes Bos](https://WesBos.com/)
 
-DEMO: *Coming soon*
+DEMO: [https://funko-dogo-next-prod.herokuapp.com](https://funko-dogo-next-prod.herokuapp.com)
 
 ## Frontend
 
