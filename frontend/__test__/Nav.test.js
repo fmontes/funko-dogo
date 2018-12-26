@@ -34,7 +34,7 @@ const signedInMocksWithCartItems = [
     }
 ];
 
-fdescribe('<Nav/>', () => {
+describe('<Nav/>', () => {
     it('renders a minimal nav when signed out', async () => {
         const wrapper = mount(
             <MockedProvider mocks={notSignedInMocks}>
