@@ -5,18 +5,18 @@ DEMO: *Coming soon*
 
 ## Frontend
 
-- Next.js for server side rendering, routing and tooling
-- Styled Components for styling
-- React-Apollo for interfacing with Apollo Client
-- Jest & Enzyme for Testing
+- [Next.js](https://github.com/zeit/next.js/) for server side rendering, routing and tooling
+- [Styled Components](https://www.styled-components.com/) for styling
+- [React-Apollo](https://github.com/apollographql/react-apollo) for interfacing with Apollo Client
+- [Jest](https://jestjs.io/) & [Enzyme](https://airbnb.io/enzyme/) for Testing
 
 ## Data Management
 
-- Apollo Client replaces the need for redux + data fetching/caching libraries
+- [Apollo Client](https://www.apollographql.com/docs/react/api/apollo-client.html) replaces the need for redux + data fetching/caching libraries
 
 ## Backend
 
-#### GraphQL Yoga: An Express GraphQL Server For:
+#### [GraphQL Yoga](https://github.com/prisma/graphql-yoga): An Express GraphQL Server For:
 
 - Implementing Query and Mutation Resolvers
 - Custom Server Side Logic
@@ -25,7 +25,7 @@ DEMO: *Coming soon*
 - Performing JWT Authentication
 - Checking Permissions
 
-#### Prisma
+#### [Prisma](https://www.prisma.io/)
 
 - Provides a set of GraphQL CRUD APIs for a MySQL, Postgres or MongoDB Database
 - Schema Definition
