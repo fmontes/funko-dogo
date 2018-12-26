@@ -34,7 +34,7 @@ const AnimationStyles = styled.span`
 `;
 
 const Dot = styled.div`
-    background: ${props => props.theme.red};
+    background: ${props => props.theme.yellow};
     border-radius: 50%;
     color: white;
     font-feature-settings: 'tnum';

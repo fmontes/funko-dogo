@@ -4,13 +4,14 @@ import Meta from './Meta';
 import styled, { ThemeProvider, injectGlobal } from 'styled-components';
 
 const theme = {
-    red: '#FF0000',
-    black: '#393939',
+    yellow: '#e8d900',
+    black: '#212223',
     grey: '#3A3A3A',
     lightgrey: '#E1E1E1',
     offWhite: '#EDEDED',
     maxWidth: '1000px',
-    bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)'
+    bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)',
+    ts: '2px 2px 0 rgba(0, 0, 0, 0.1)'
 };
 
 injectGlobal`

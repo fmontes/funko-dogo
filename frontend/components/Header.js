@@ -27,10 +27,12 @@ const Logo = styled.h1`
 
     a {
         padding: 0.5rem 1rem;
-        background: ${props => props.theme.red};
-        color: white;
+        background: ${props => props.theme.yellow};
+        color: ${props => props.theme.black};
         text-transform: uppercase;
         text-decoration: none;
+        letter-spacing: -1px;
+        text-shadow: ${props => props.theme.ts};
     }
 
     @media (max-width: 1300px) {
@@ -64,7 +66,7 @@ const Header = () => {
             <div className="bar">
                 <Logo>
                     <Link href="">
-                        <a>Sick fits</a>
+                        <a>Funko Dogo</a>
                     </Link>
                 </Logo>
                 <Nav />

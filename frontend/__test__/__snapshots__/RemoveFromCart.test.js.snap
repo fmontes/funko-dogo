@@ -2,7 +2,7 @@
 
 exports[`<RemoveFromCart/> renders and matches snapshot 1`] = `
 <button
-  className="RemoveFromCart__BigButton-emvtd6-0 gPWNSn"
+  className="RemoveFromCart__BigButton-nn3prx-0 jyKJPU"
   disabled={false}
   onClick={[Function]}
   title="Delete Item"
