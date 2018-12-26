@@ -42,6 +42,7 @@ type User {
     email: String!
     permissions: [Permission!]!
     cart: [CartItem!]!
+    orders: [Order!]!
     # password: String!
     # resetToken: String
     # resetToenExpiry: String
