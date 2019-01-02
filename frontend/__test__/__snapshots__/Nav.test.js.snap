@@ -2,7 +2,7 @@
 
 exports[`<Nav/> renders a minimal nav when signed out 1`] = `
 <ul
-  className="NavStyles-sc-1hyspmy-0 dHCQcy"
+  className="NavStyles-sc-1hyspmy-0 bPFhYk"
   data-test="nav"
 >
   <Link
